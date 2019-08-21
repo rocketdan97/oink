@@ -24,19 +24,23 @@ class Oink(object):
             if \
                 Oink.is_vowel(word[0]) \
             else (
-                word[1:] + word[0]+"ay" \
-                if not \
-                    word[-1] in string.punctuation \
+                (
+                    word[1:] + word[0]+"ay" \
+                    if not \
+                        word[-1] in string.punctuation \
+                    else \
+                        word[1:-1] + word[0]+"ay"+word[-1]
+                ) if not \
+                    word[0] in string.digits \
                 else \
-                    word[1:-1] + word[0]+"ay"+word[-1]
+                    word \
             ) \
             for word in input_string \
-            if word[0] not in string.digits
         ])
 
     @classmethod
     def is_vowel(cls,letter):
-        if letter.lower() in ['a','e','i','o','u']:
+        if letter.lower() in 'aeiou':
             return True
         return False
         
