@@ -1,18 +1,48 @@
-def is_vowel(letter):
-    vowels = ['a','e','i','o','u']
-    for vowel in vowels:
-        if letter == vowel:
+import string
+
+class Oink(object):
+    '''
+    your kid came home from summer camp and you can't understand them
+    '''    
+    @classmethod
+    def translate(cls,input_string):
+        '''
+        translate that crap your kid is saying into ENGLISH
+        '''
+        assert isinstance(input_string,str), "source must be a string"
+
+        input_string = input_string.strip().split(' ')
+
+        return ' '.join([
+            (
+                word[1:] + word[0]+"way" \
+                if not \
+                    word[-1] in string.punctuation \
+                else \
+                    word[1:-1] + word[0]+"way"+word[-1]
+            ) \
+            if \
+                Oink.is_vowel(word[0]) \
+            else (
+                (
+                    word[1:] + word[0]+"ay" \
+                    if not \
+                        word[-1] in string.punctuation \
+                    else \
+                        word[1:-1] + word[0]+"ay"+word[-1]
+                ) if not \
+                    word[0] in string.digits \
+                else \
+                    word \
+            ) \
+            for word in input_string \
+        ])
+
+    @classmethod
+    def is_vowel(cls,letter):
+        if letter.lower() in 'aeiou':
             return True
-    return False
-
-source = "source"
-
-translation  = source.split(' ')
-
-for word in translation:
-    if is_vowel(word[0]):
-        word = word + "way"
-        print(word)
-    else:
-        word = word[1:len(word)] + word[0] + "ay"
-        print(word)
+        return False
+        
+    def oink(self,source):
+        return Oink.translate(source)
